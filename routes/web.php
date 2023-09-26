@@ -19,7 +19,6 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     $data = Blogs::orderBy('created_at', 'desc')->get();
-
     return view('welcome', compact('data'));
 });
 

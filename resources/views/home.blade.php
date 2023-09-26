@@ -5,10 +5,9 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                        <!-- Button trigger modal -->
-                        <div class="card-header d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary " data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
+                    <!-- Button trigger modal -->
+                    <div class="card-header d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Add New Blog
                         </button>
                     </div>
@@ -32,9 +31,9 @@
                                     aria-label="Close"></button>
                             </div>
                         @endif
-                        
 
-                        <!-- Modal -->
+
+                        <!-- Modal For Add-->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog">
@@ -65,34 +64,31 @@
                                 </div>
                             </div>
                         </div>
+                       
                         <div class="mt-2">
 
                             <h4 class="mb-3 text-center fw-bold">Previous Blogs</h4>
                             <hr class="text-secondry">
-                            @if(count($data)>0)
-                            @foreach ($data as $data)
-                            <div class="row mb-3">
-                                <div class="card">
-                                    <div class="card-header fw-bold fs-5">
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                <button class="border border-0 text-primary"><i class="fa fa-pencil-alt"></i></button>
+                            @if (count($data) > 0)
+                                @foreach ($data as $data)
+                                    <div class="row mb-3">
+                                        <div class="card">
+                                            <div class="card-header fw-bold fs-5 d-flex justify-content-end">
+                                                <a href="{{ route('blog.update', ['id' => $data->id]) }}" class="border border-0 text-primary ms-3"><i
+                                                        class="fa fa-pencil-alt"></i></a>
+                                                <a href="{{ route('blog.delete', ['id' => $data->id]) }}"
+                                                    class="text-danger ms-3"><i class="fa fa-trash"></i></a>
                                             </div>
-                                            <div class="col-md-1">
-                                                <a href="{{ route('blog.delete', ['id' => $data->id]) }}" class="text-danger"><i class="fa fa-trash"></i></a>   
-                                            </div>
-                                        </div>  
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="fw-bold fs-5">
-                                            {{$data->title}}
-                                        </div>
-                                        <p class="card-text">{{$data->content}}</p>
+                                            <div class="card-body">
+                                                <div class="fw-bold fs-5">
+                                                    {{ $data->title }}
+                                                </div>
+                                                <p class="card-text">{{ $data->content }}</p>
 
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>   
-                            @endforeach
+                                @endforeach
                             @else
                                 <h3 class="text-center">No Blog Yet</h3>
                             @endif

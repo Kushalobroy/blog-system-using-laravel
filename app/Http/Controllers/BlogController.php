@@ -22,11 +22,20 @@ class BlogController extends Controller
            $blogs->content = $request->content;
            $blogs->save();
            Session::flash('Blog_add','Blog Added Successfully');
-           return back();    
+           return view('home');    
     }
-    public function delete($id){
+    public function delete(Request $request,$id){
         $data = Blogs::find($id);
-        $data->destroy();
-        return back('Delete_blog','Blog Deleted Successfully');
+        if (!$data) {
+            Session::flash('Delete_blog','Blog Not Found');
+            return back();
+        }
+        $data->delete();
+        Session::flash('Delete_blog','Blog deleted Successfully');
+        return back();
+    }
+    public function blogUpdate(Request $request, $id){
+        $blog = Blogs::find($id);
+        return view('BlogUpdate',compact('blog'));
     }
 }

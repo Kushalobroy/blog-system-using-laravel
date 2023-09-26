@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Blogs;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 
 /*
@@ -16,9 +18,12 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $data = Blogs::orderBy('created_at', 'desc')->get();
+
+    return view('welcome', compact('data'));
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/addblog',[BlogController::class,'addblog'])->name('addblog');

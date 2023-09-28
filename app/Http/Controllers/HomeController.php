@@ -31,4 +31,8 @@ class HomeController extends Controller
         $data = Blogs::orderBy('created_at', 'desc')->where('user_id', $id)->get(); 
         return view('home', compact('data'));
     }
+    public function blogs(Request $request){
+        $data = Blogs::orderBy('created_at', 'desc')->get();
+        return view('welcome');
+    }
 }

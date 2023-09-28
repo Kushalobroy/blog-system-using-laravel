@@ -22,15 +22,17 @@ class BlogController extends Controller
            $blogs->content = $request->content;
            $blogs->save();
            Session::flash('Blog_add','Blog Added Successfully');
-           return view('home');    
+           return back();    
     }
     public function delete(Request $request,$id){
         $data = Blogs::find($id);
         if (!$data) {
-            Session::flash('Delete_blog','Blog Not Found');
             return back();
         }
         $data->delete();
+        if ($request->expectsJson()) {
+            return response()->json(['message' => 'Blog Deleted Successfully'], 200);
+        }
         Session::flash('Delete_blog','Blog deleted Successfully');
         return back();
     }
@@ -38,4 +40,17 @@ class BlogController extends Controller
         $blog = Blogs::find($id);
         return view('BlogUpdate',compact('blog'));
     }
+    public function updateblog(Request $request, $id){
+        $request->validate([
+             'title'=>'required',
+             'content'=>'required'
+        ]);
+        $blogs = Blogs::find($id);
+        $blogs->user_id = $request->user_id;
+        $blogs->title = $request->title;
+        $blogs->content = $request->content;
+        $blogs->save();
+        Session::flash('update','Blog updated Successfully');
+        return view('home');    
+ }
 }

@@ -20,3 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('delete/{id}',[BlogController::class,'delete'])->name('blog.delete');
 Route::get('BlogUpdate/{id}',[BlogController::class,'blogUpdate'])->name('blog.update');
+Route::post('updateblog/{id}',[BlogController::class,'updateblog'])->name('updateblog');
+Route::get('/',[HomeController::class,'blogs'])->name('blogs');

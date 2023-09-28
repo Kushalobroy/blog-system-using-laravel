@@ -31,7 +31,13 @@
                                     aria-label="Close"></button>
                             </div>
                         @endif
-
+                        @if (Session::has('update'))
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            {{ Session::get('update') }}
+                            <button type="button" class="btn-close " data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        </div>
+                    @endif
 
                         <!-- Modal For Add-->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -90,7 +96,7 @@
                                     </div>
                                 @endforeach
                             @else
-                                <h3 class="text-center">No Blog Yet</h3>
+                                <h3 class="text-center mt-3">No Blog Yet</h3>
                             @endif
                         </div>
                     </div>

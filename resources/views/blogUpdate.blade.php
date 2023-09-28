@@ -2,7 +2,9 @@
 
 @section('content')
     <div class="container">
-        <form action="{{ url('/addblog') }}">
+        <form action={{ route('updateblog', ['id' => $blog->id]) }} method="post">
+            @csrf
+            <input type="text" name="user_id" value="{{$blog->user_id}}" hidden>
             <div class="mb-3">
             <input type="text" class="form-control" name="title" id="" value="{{$blog->title}}">
         </div>

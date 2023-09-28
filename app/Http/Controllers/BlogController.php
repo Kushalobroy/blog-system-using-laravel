@@ -10,21 +10,26 @@ use Illuminate\Support\Facades\Session;
 
 class BlogController extends Controller
 {
-    public function addblog(Request $request){
-           $request->validate([
-                'title'=>'required',
-                'content'=>'required'
-           ]);
-           $user = Auth::user();
-           $blogs = new Blogs;
-           $blogs->user_id = $user->id;
-           $blogs->title = $request->title;
-           $blogs->content = $request->content;
-           $blogs->save();
-           Session::flash('Blog_add','Blog Added Successfully');
-           return back();    
+    public function addblog(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+        $user = Auth::user();
+        $blogs = new Blogs;
+        $blogs->user_id = $user->id;
+        $blogs->title = $request->title;
+        $blogs->content = $request->content;
+        $blogs->save();
+        if ($request->expectsJson()) {
+            return response()->json(['message' => 'Blog Added Successfully'], 200);
+        }
+        Session::flash('Blog_add', 'Blog Added Successfully');
+        return back();
     }
-    public function delete(Request $request,$id){
+    public function delete(Request $request, $id)
+    {
         $data = Blogs::find($id);
         if (!$data) {
             return back();
@@ -33,24 +38,29 @@ class BlogController extends Controller
         if ($request->expectsJson()) {
             return response()->json(['message' => 'Blog Deleted Successfully'], 200);
         }
-        Session::flash('Delete_blog','Blog deleted Successfully');
+        Session::flash('Delete_blog', 'Blog deleted Successfully');
         return back();
     }
-    public function blogUpdate(Request $request, $id){
+    public function blogUpdate(Request $request, $id)
+    {
         $blog = Blogs::find($id);
-        return view('BlogUpdate',compact('blog'));
+        return view('BlogUpdate', compact('blog'));
     }
-    public function updateblog(Request $request, $id){
+    public function updateblog(Request $request, $id)
+    {
         $request->validate([
-             'title'=>'required',
-             'content'=>'required'
+            'title' => 'required',
+            'content' => 'required'
         ]);
         $blogs = Blogs::find($id);
         $blogs->user_id = $request->user_id;
         $blogs->title = $request->title;
         $blogs->content = $request->content;
         $blogs->save();
-        Session::flash('update','Blog updated Successfully');
-        return view('home');    
- }
+        if ($request->expectsJson()) {
+            return response()->json(['message' => 'Blog Updated Successfully'], 200);
+        }
+        Session::flash('update', 'Blog updated Successfully');
+        return view('home');
+    }
 }

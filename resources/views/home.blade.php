@@ -49,7 +49,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
-                                    <form action="{{ url('/addblog') }}" method="POST">
+                                    <form action="{{ route('addblog') }}" method="POST">
                                         @csrf
                                         <div class="modal-body">
                                             <div class="mb-3">

@@ -18,6 +18,7 @@ use App\Http\Controllers\BlogController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('addblog',[BlogController::class,'addblog'])->name('addblog');
 Route::get('delete/{id}',[BlogController::class,'delete'])->name('blog.delete');
 Route::get('BlogUpdate/{id}',[BlogController::class,'blogUpdate'])->name('blog.update');
 Route::post('updateblog/{id}',[BlogController::class,'updateblog'])->name('updateblog');
